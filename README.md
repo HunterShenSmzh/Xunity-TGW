@@ -21,13 +21,31 @@ api启动
 
 从文件目录下载TGWTranslator.dll放置在Translators文件夹内
 
-修改AutoTranslatorConfig.ini中  
+如果你使用ReiPatcher，你应该放在{游戏目录}\{游戏名}_Data\Managed\Translators   
+
+如果你使用BepInEx,你应该放在{游戏目录}\BepInEx\plugins\XUnity.AutoTranslator\Translators   
+
+修改AutoTranslatorConfig.ini  
+
+如果你使用ReiPatcher，配置文件应该在`{游戏目录}\AutoTranslator\Config.ini  
+
+如果你使用BepInEx,配置文件应该在`{游戏目录}\BepInEx\config\AutoTranslatorConfig.ini  
+
+修改内容：  
+
+[Service]  
+Endpoint=TGWTranslator  
+FallbackEndpoint=  
+
 [General]  
-Language=zh-CN  
-FromLanguage=ja  
-[TGW]  
-Endpoint=http://127.0.0.1:5000/v1/chat/completions  
-ApiType=TGW  
+Language=翻译完成的语言(如zh-CN)  
+FromLanguage=你要翻译的语言(如jp,en)  
+
+如果你在使用中出现了缺字、方块字等情况，请指定外部字体：  
+[Behaviour]  
+OverrideFont= ##填写你系统中已安装的字体名  
+OverrideFontTextMeshPro= arialuni_sdf_u2018 ##或arialuni_sdf_u2019  
+其中arialuni_sdf_u201x可以从字体文件获取，请解压后直接放置在游戏根目录  
 
 启动游戏后，使用快捷键alt+0打开翻译面板，选择TGWTranslator  
 
