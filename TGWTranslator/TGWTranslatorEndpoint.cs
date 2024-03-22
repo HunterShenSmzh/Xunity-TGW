@@ -1,10 +1,17 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Text;
 using XUnity.AutoTranslator.Plugin.Core.Endpoints;
+
+[assembly: AssemblyVersion("0.3.1")]
+[assembly: AssemblyFileVersion("0.3.1")]
 
 namespace TGWTranslator
 {
@@ -14,18 +21,61 @@ namespace TGWTranslator
 
         public string FriendlyName => "TGW Translator";
 
-        public int MaxConcurrency => 1;
+        public int MaxConcurrency => _maxConcurrency;
 
         public int MaxTranslationsPerRequest => 1;
 
         // params
         private string _endpoint;
         private string _apiType;
+        private int _maxConcurrency;
+        private bool _useDict;
+        private string _dictMode;
+        private Dictionary<string, string> _dict;
+
+        // local var
+        private string _fullDictStr;
 
         public void Initialize(IInitializationContext context)
         {
             _endpoint = context.GetOrCreateSetting<string>("TGW", "Endpoint", "http://127.0.0.1:5000/v1/chat/completion");
             _apiType = context.GetOrCreateSetting<string>("TGW", "ApiType", string.Empty);
+            if (!int.TryParse(context.GetOrCreateSetting<string>("TGW", "MaxConcurrency", "1"), out _maxConcurrency))
+            {
+                _maxConcurrency = 1;
+            }
+            if (!bool.TryParse(context.GetOrCreateSetting<string>("TGW", "UseDict", string.Empty), out _useDict))
+            {
+                _useDict = false;
+            }
+            _dictMode = context.GetOrCreateSetting<string>("TGW", "DictMode", "Full");
+            var dictStr = context.GetOrCreateSetting<string>("TGW", "Dict", string.Empty);
+            if (!string.IsNullOrEmpty(dictStr))
+            {
+                try
+                {
+                    _dict = new Dictionary<string, string>();
+                    JObject dictJObj = JsonConvert.DeserializeObject(dictStr) as JObject;
+                    foreach (var item in dictJObj)
+                    {
+                        _dict.Add(item.Key, item.Value.ToString());
+                    }
+                    if (_dict.Count == 0)
+                    {
+                        _useDict = false;
+                        _fullDictStr = string.Empty;
+                    }
+                    else
+                    {
+                        _fullDictStr = string.Join("\n", _dict.Select(x => $"{x.Key}->{x.Value}").ToArray());
+                    }
+                }
+                catch
+                {
+                    _useDict = false;
+                    _fullDictStr = string.Empty;
+                }
+            }
         }
 
         public IEnumerator Translate(ITranslationContext context)
