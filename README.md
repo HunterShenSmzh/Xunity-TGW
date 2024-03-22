@@ -1,6 +1,6 @@
 # Xunity-TGW
 XUnity.AutoTranslator+Text Generation webui translate  
-特别感谢[SakuraTranslato](https://github.com/fkiliver/SakuraTranslator)  
+特别感谢[SakuraTranslator](https://github.com/fkiliver/SakuraTranslator)  
 本项目是由其修改而来  
 # 介绍
 这是一个基于XUnity.AutoTranslator和Text Geneartion Webui的Unity游戏本地翻译器  
