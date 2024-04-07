@@ -38,8 +38,8 @@ namespace TGWTranslator
 
         public void Initialize(IInitializationContext context)
         {
-            _endpoint = context.GetOrCreateSetting<string>("TGW", "Endpoint", "http://127.0.0.1:5000/v1/chat/completion");
-            _apiType = context.GetOrCreateSetting<string>("TGW", "ApiType", string.Empty);
+            _endpoint = context.GetOrCreateSetting<string>("TGW", "Endpoint", "http://127.0.0.1:5000/v1/chat/completions");
+            _apiType = context.GetOrCreateSetting<string>("TGW", "ApiType", "TGW");
             if (!int.TryParse(context.GetOrCreateSetting<string>("TGW", "MaxConcurrency", "1"), out _maxConcurrency))
             {
                 _maxConcurrency = 1;
