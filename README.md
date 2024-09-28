@@ -58,12 +58,12 @@ OverrideFontTextMeshPro= arialuni_sdf_u2018 ##或arialuni_sdf_u2019
 # 备用方案
 如果你发现TGWTranslator无法选中，报错，或者为灰色，那么请按照接下来的备用方案流程操作  
 首先下载github页面上的UseCustomURLSolution/Translate.exe文件  
-然后直接启动此程序：  
+然后直接启动此程序(！！！启动后不要关闭！！！)正常应该如下图所示：  
 ![image](https://github.com/HunterShenSmzh/Xunity-TGW/assets/129963508/5678b19f-0f38-401b-b158-4f711f85ed5e)
 
 输入你的TGW的api地址，正常情况是（注意5000端口才是api地址，7860是webui端口）：http://127.0.0.1:5000/v1/chat/completions  
 注：如果是使用kaggle，那应该输入Tunnel2+/v1/chat/completions  
-然后回车让其运行：  
+然后回车让其运行(！！！启动后不要关闭！！！)正常应该如下图所示：  
 ![image](https://github.com/HunterShenSmzh/Xunity-TGW/assets/129963508/39aaebdb-da68-48b4-a969-0b9a607312f5)
 
 在XUnity的配置文件当中，修改：  
